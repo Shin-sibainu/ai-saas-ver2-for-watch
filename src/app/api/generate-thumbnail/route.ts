@@ -7,9 +7,9 @@ import FormData from "form-data";
 
 export async function POST(req: Request) {
   try {
-    const { title } = await req.json();
+    const { keyword } = await req.json();
 
-    const fullPrompt = `Create a simple and modern thumbnail representing "${title}". Style: minimal design with single centered element, soft gradient background, clean composition, high contrast, generous whitespace. Must be instantly recognizable, no text, no people, no complex patterns. Focus on basic geometric shapes and iconic symbols with subtle shadows. Perfect for quick visual understanding`;
+    const fullPrompt = `Create a simple and modern image of ${keyword}. Style: clean minimal design, soft gradient background, centered composition, high contrast, generous whitespace. Focus on simple recognizable elements, no text. Make it visually appealing and easy to understand`;
 
     // FormDataオブジェクトの作成
     const formData = new FormData();

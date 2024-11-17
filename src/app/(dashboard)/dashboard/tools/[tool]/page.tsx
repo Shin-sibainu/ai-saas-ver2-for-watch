@@ -7,9 +7,9 @@ import ThumbnailGenerator from "@/components/dashboard/tools/thumbnail-generator
 
 // ツールの定義
 const tools = {
-  thumbnail: {
-    title: "サムネイル生成",
-    description: "AIを使用してブログやSNS向けのサムネイルを生成",
+  "image-generator": {
+    title: "画像生成",
+    description: "AIを使用してお好みの画像を生成してみよう",
     component: ThumbnailGenerator,
   },
   "remove-bg": {

@@ -26,8 +26,8 @@ const navItems: NavItem[] = [
     icon: LayoutDashboard,
   },
   {
-    title: "サムネイル生成",
-    href: "/dashboard/tools/thumbnail",
+    title: "画像生成",
+    href: "/dashboard/tools/image-generator",
     icon: Image,
   },
   {
@@ -36,7 +36,7 @@ const navItems: NavItem[] = [
     icon: Layers,
   },
   {
-    title: "画像最適化",
+    title: "画像圧縮",
     href: "/dashboard/tools/optimize",
     icon: ImageDown,
   },
