@@ -1,6 +1,6 @@
 // app/(dashboard)/tools/[tool]/page.tsx
 import { notFound } from "next/navigation";
-import ThumbnailGenerator from "@/components/dashboard/tools/thumbnail-generator";
+import ThumbnailGenerator from "@/components/dashboard/tools/image-generator";
 // import ThumbnailGenerator from "@/components/tools/thumbnail-generator";
 // import BackgroundRemover from "@/components/tools/background-remover";
 // import ImageOptimizer from "@/components/tools/image-optimizer";

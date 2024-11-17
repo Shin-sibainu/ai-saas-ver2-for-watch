@@ -1,4 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
+// https://platform.stability.ai/docs/api-reference
+// https://platform.stability.ai/account/credits
 "use client";
 
 import { useState } from "react";
@@ -7,11 +9,28 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Download, Image as ImageIcon } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { Progress } from "@/components/ui/progress";
 
 export default function ImageGenerator() {
   const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0); // 進行状況を管理
   const [keyword, setKeyword] = useState("");
   const [generatedImage, setGenerateImage] = useState("");
+
+  const simulateProgress = () => {
+    setProgress(0);
+    const interval = setInterval(() => {
+      setProgress((prevProgress) => {
+        if (prevProgress >= 95) {
+          clearInterval(interval);
+          return prevProgress;
+        }
+        return prevProgress + 5;
+      });
+    }, 200);
+
+    return () => clearInterval(interval);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,6 +44,8 @@ export default function ImageGenerator() {
     }
 
     setLoading(true);
+    simulateProgress(); // プログレス開始
+
     try {
       const response = await fetch("/api/generate-thumbnail", {
         method: "POST",
@@ -44,6 +65,7 @@ export default function ImageGenerator() {
       }
 
       setGenerateImage(data.imageUrl);
+      setProgress(100); // 完了時に100%に
       toast({
         title: "生成完了",
         description: "画像の生成が完了しました。",
@@ -56,7 +78,43 @@ export default function ImageGenerator() {
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+        setProgress(0);
+      }, 500); // プログレスバーを少し表示してから消す
+    }
+  };
+
+  const handleDownload = () => {
+    try {
+      const base64Data = generatedImage.split(",")[1];
+      const blob = new Blob([Buffer.from(base64Data, "base64")], {
+        type: "image/png",
+      });
+
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${keyword}.png`; // ファイル名にキーワードを使用
+      document.body.appendChild(link);
+      link.click();
+
+      // 一時的なリンクを削除
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      toast({
+        title: "ダウンロード完了",
+        description: "画像のダウンロードが完了しました。",
+      });
+    } catch (error) {
+      console.error("Download error:", error);
+      toast({
+        title: "エラー",
+        description: "ダウンロードに失敗しました。",
+        variant: "destructive",
+      });
     }
   };
 
@@ -76,9 +134,19 @@ export default function ImageGenerator() {
           </div>
           <Button disabled={loading} type="submit" className="w-full">
             <ImageIcon className="mr-2 h-4 w-4" />
-            {loading ? "生成中..." : "画像を作成"}
+            {loading ? "生成中..." : "画像を生成"}
           </Button>
         </form>
+
+        {/* ローディング時のプログレスバー */}
+        {loading && (
+          <div className="space-y-2">
+            <Progress value={progress} className="w-full h-2" />
+            <p className="text-sm text-muted-foreground text-center">
+              画像を生成中です... {progress}%
+            </p>
+          </div>
+        )}
       </div>
 
       {generatedImage && (
@@ -92,7 +160,11 @@ export default function ImageGenerator() {
               />
             </div>
           </div>
-          <Button variant="secondary" className="w-full">
+          <Button
+            onClick={handleDownload}
+            variant="secondary"
+            className="w-full"
+          >
             <Download className="mr-2 h-4 w-4" />
             ダウンロード
           </Button>
