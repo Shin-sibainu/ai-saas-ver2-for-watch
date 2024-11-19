@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 import FormData from "form-data";
+import sharp from "sharp";
 
 //https://platform.stability.ai/docs/api-reference
 
@@ -37,8 +38,17 @@ export async function POST(req: Request) {
       throw new Error(`API error: ${response.status}`);
     }
 
+    // 画像の最適化
+    const optimizedImage = await sharp(response.data)
+      .resize(1280, 720, {
+        fit: "inside",
+        withoutEnlargement: true,
+      })
+      .png({ quality: 80, compressionLevel: 9 })
+      .toBuffer();
+
     // Base64エンコードしてクライアントに返す
-    const base64Image = Buffer.from(response.data).toString("base64");
+    const base64Image = optimizedImage.toString("base64");
     const imageUrl = `data:image/png;base64,${base64Image}`;
 
     return NextResponse.json({ imageUrl });
