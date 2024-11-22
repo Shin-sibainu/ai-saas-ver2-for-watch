@@ -11,6 +11,8 @@ import {
   ImageDown,
   Settings,
   Layers,
+  Sparkles,
+  UserIcon,
 } from "lucide-react";
 
 interface NavItem {
@@ -50,22 +52,50 @@ const navItems: NavItem[] = [
 const DashboardNav = () => {
   const pathname = usePathname();
 
+  // 現在のプランを取得する（実際の実装に応じて修正してください）
+  const currentPlan = "free"; // 例: "free" | "pro" | "business"
+
   return (
-    <nav className="grid items-start gap-2">
-      {navItems.map((item) => (
-        <Button
-          key={item.href}
-          variant={pathname === item.href ? "secondary" : "ghost"}
-          className={cn("justify-start", pathname === item.href && "bg-accent")}
-          asChild
-        >
-          <Link href={item.href}>
-            {item.icon && <item.icon className="mr-2 h-4 w-4" />}
-            {item.title}
-          </Link>
-        </Button>
-      ))}
-    </nav>
+    <div className="flex flex-col h-full">
+      <nav className="grid items-start gap-2">
+        {navItems.map((item) => (
+          <Button
+            key={item.href}
+            variant={pathname === item.href ? "secondary" : "ghost"}
+            className={cn(
+              "justify-start",
+              pathname === item.href && "bg-accent"
+            )}
+            asChild
+          >
+            <Link href={item.href}>
+              {item.icon && <item.icon className="mr-2 h-4 w-4" />}
+              {item.title}
+            </Link>
+          </Button>
+        ))}
+      </nav>
+
+      <div className="px-3 py-2 mt-auto">
+        {currentPlan === "free" && (
+          <Button
+            className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 text-white"
+            asChild
+          >
+            <Link
+              href="/dashboard/plans"
+              className="flex items-center justify-center"
+            >
+              <Sparkles />
+              アップグレード
+            </Link>
+          </Button>
+        )}
+        <div className="mt-6 border-2 inline-block rounded-full p-1">
+          <UserIcon />
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   try {
     const { keyword } = await req.json();
 
-    const fullPrompt = `Create a simple and modern image of ${keyword}. Style: clean minimal design, soft gradient background, centered composition, high contrast, generous whitespace. Focus on simple recognizable elements, no text. Make it visually appealing and easy to understand`;
+    const fullPrompt = `${keyword}に関連するシンプルな画像を生成してください。`;
 
     // FormDataオブジェクトの作成
     const formData = new FormData();
