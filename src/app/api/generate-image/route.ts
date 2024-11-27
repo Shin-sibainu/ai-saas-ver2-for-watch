@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   try {
     const { keyword } = await req.json();
 
-    const fullPrompt = `${keyword}に関連するシンプルな画像を生成してください。`;
+    const fullPrompt = `Simple Image with ${keyword}`;
 
     // FormDataオブジェクトの作成
     const formData = new FormData();

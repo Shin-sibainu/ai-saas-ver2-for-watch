@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,8 +7,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, Zap } from "lucide-react";
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { PricingButton } from "@/components/payment/upgrade-button";
 
 const pricingPlans = [
   {
@@ -127,17 +127,13 @@ export default function PricingPage() {
               </ul>
             </CardContent>
             <CardFooter className="mt-auto">
-              <Button
-                className={cn(
-                  "w-full",
-                  plan.isPopular &&
-                    "bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600"
-                )}
+              <PricingButton
+                planName={plan.name}
+                buttonText={plan.buttonText}
+                price={plan.price}
+                isPopular={plan.isPopular}
                 disabled={plan.disabled}
-              >
-                {plan.buttonText}
-                {plan.isPopular && <Zap className="w-4 h-4 ml-2" />}
-              </Button>
+              />
             </CardFooter>
           </Card>
         ))}

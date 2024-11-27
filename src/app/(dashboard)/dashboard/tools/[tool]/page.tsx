@@ -3,8 +3,7 @@ import { notFound } from "next/navigation";
 import ImageGenerator from "@/components/dashboard/tools/image-generator";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { PageContainer } from "@/components/dashboard/page-container";
-// import ThumbnailGenerator from "@/components/tools/thumbnail-generator";
-// import BackgroundRemover from "@/components/tools/background-remover";
+import BackgroundRemover from "@/components/dashboard/tools/background-remover";
 // import ImageOptimizer from "@/components/tools/image-optimizer";
 
 // ツールの定義
@@ -17,7 +16,7 @@ const tools = {
   "remove-bg": {
     title: "背景削除",
     description: "画像から背景を自動で削除",
-    component: ImageGenerator,
+    component: BackgroundRemover,
   },
   optimize: {
     title: "画像最適化",
