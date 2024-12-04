@@ -13,7 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
-import { PaymentForm } from "./payment-form";
+import { PaymentForm } from "../payment/payment-form";
 
 interface PricingButtonProps {
   planName: string;
@@ -27,8 +27,8 @@ export function PricingButton({
   planName,
   buttonText,
   price,
-  isPopular,
-  disabled,
+  isPopular = false,
+  disabled = false,
 }: PricingButtonProps) {
   const [showPayment, setShowPayment] = useState(false);
 

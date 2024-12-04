@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { ImageIcon, Loader2 } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
-const LoadingDots = () => {
+export const LoadingDots = () => {
   return (
     <span className="inline-flex items-center">
       <span className="animate-bounce mx-0.5 h-1 w-1 rounded-full bg-white"></span>
@@ -19,7 +19,7 @@ const LoadingDots = () => {
   );
 };
 
-const LoadingSpinner = () => {
+export const LoadingSpinner = () => {
   return (
     <div className="inline-flex items-center">
       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
