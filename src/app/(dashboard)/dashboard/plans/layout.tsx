@@ -9,16 +9,7 @@ export default function PlansLayout({
   return (
     <div>
       {children}
-      <div className="absolute top-4 z-50" style={{ zIndex: 9999 }}>
-        <Script
-          type="text/javascript"
-          src="https://checkout.pay.jp/"
-          className="payjp-button"
-          data-key={process.env.NEXT_PUBLIC_PAYJP_PUBLIC_KEY}
-          data-text="カード情報を入力"
-          data-submit-text="支払う"
-        />
-      </div>
+      <Script src="https://js.pay.jp/v2/pay.js" strategy="beforeInteractive" />
     </div>
   );
 }

@@ -12,8 +12,9 @@ import {
   Settings,
   Layers,
   Sparkles,
-  UserIcon,
 } from "lucide-react";
+import { UserButton } from "@clerk/nextjs";
+import { AuthButton } from "../auth/auth-button";
 
 interface NavItem {
   title: string;
@@ -91,8 +92,16 @@ const DashboardNav = () => {
             </Link>
           </Button>
         )}
-        <div className="mt-6 border-2 inline-block rounded-full p-1">
-          <UserIcon />
+        <div className="mt-6">
+          {/* <UserButton
+            appearance={{
+              elements: {
+                avatarBox: "h-10 w-10",
+                userButtonTrigger: "focus:shadow-none"
+              }
+            }}
+          /> */}
+          <AuthButton/>
         </div>
       </div>
     </div>
