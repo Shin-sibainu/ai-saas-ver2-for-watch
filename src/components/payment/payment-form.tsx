@@ -96,7 +96,7 @@ export function PaymentForm({ plan, onSuccess, onCancel }: PaymentFormProps) {
         variant: "destructive",
       });
     }
-  }, []);
+  }, [payjpElement]);
 
   const handleSubmit = async () => {
     if (!payjpElement || !payjpInstanceRef.current || isLoading) return;

@@ -13,7 +13,6 @@ import {
   Layers,
   Sparkles,
 } from "lucide-react";
-import { UserButton } from "@clerk/nextjs";
 import { AuthButton } from "../auth/auth-button";
 
 interface NavItem {
